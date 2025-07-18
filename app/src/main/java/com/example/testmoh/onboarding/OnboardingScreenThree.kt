@@ -68,7 +68,7 @@ fun OnboardingScreenThree(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Fast-Food ?\nEncore Plus Rapide.", // Original text
+                    text = "Fast-Food ? Encore Plus\ngit  Rapide.", // Original text
                     color = Color.White,
                     fontSize = 25.sp, // Consistent font size
                     fontWeight = FontWeight.Bold,

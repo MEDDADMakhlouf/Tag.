@@ -68,7 +68,7 @@ fun OnboardingScreenFour(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Restaurant ?\nPlus Besoin D'attendre.", // Original text
+                    text = "Restaurant ?Plus Besoin\n D'attendre.", // Original text
                     color = Color.White,
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,

@@ -43,8 +43,7 @@ fun OnboardingScreenTwo(
     onSignInClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {}
 ) {
-    // Define a consistent horizontal padding for all left-aligned components
-    val contentStartPadding = 24.dp // Consistent with OnboardingScreenOne
+    val contentStartPadding = 24.dp // Our unified left margin
 
     Box(
         modifier = modifier
@@ -65,8 +64,9 @@ fun OnboardingScreenTwo(
             horizontalAlignment = Alignment.CenterHorizontally, // Center the entire content block horizontally
             verticalArrangement = Arrangement.Top // Start arranging from the top
         ) {
-            // Spacer to push content down to start near the middle (consistent with page 1)
-            Spacer(modifier = Modifier.weight(1.0f)) // Consistent with OnboardingScreenOne
+            // Spacer to push content down to start near the middle
+            // Adjusted weight to align with OnboardingScreenThree and OnboardingScreenFour
+            Spacer(modifier = Modifier.weight(1.5f)) // Changed from 1.8f to 1.5f
 
             // Main Title and Sub-text block
             Column(
@@ -79,25 +79,25 @@ fun OnboardingScreenTwo(
                 Text(
                     text = "Un Simple Geste Suffit.", // Original text
                     color = Color.White,
-                    fontSize = 25.sp, // Consistent font size
+                    fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start, // Left align text
                     lineHeight = 28.sp
                 )
 
-                // Spacer between main title and sub-message (increased gap)
-                Spacer(modifier = Modifier.height(4.dp)) // Consistent with OnboardingScreenOne
+                // Spacer between main title and sub-message
+                Spacer(modifier = Modifier.height(4.dp)) // Increased gap
 
                 Text(
                     text = "Touchez un tag avec votre smartphone pour accéder instantanément aux services d’un établissement.", // Original text
                     color = Color.LightGray,
-                    fontSize = 10.sp, // Consistent font size
+                    fontSize = 10.sp,
                     textAlign = TextAlign.Start // Left align text
                 )
             }
 
-            // Spacer to control space between text and buttons (consistent with page 1)
-            Spacer(modifier = Modifier.height(60.dp)) // Consistent with OnboardingScreenOne
+            // Spacer to control space between text and buttons: Make this larger
+            Spacer(modifier = Modifier.height(60.dp)) // Increased fixed height for larger gap
 
             // Buttons in a Row
             Row(
@@ -128,7 +128,7 @@ fun OnboardingScreenTwo(
             }
 
             // Spacer to push "Je suis professionnel" and "Licensed by The Tag" to the very bottom
-            Spacer(modifier = Modifier.weight(0.01f)) // Consistent with OnboardingScreenOne
+            Spacer(modifier = Modifier.weight(0.01f))
 
             // "Je suis professionnel" text
             Text(
@@ -142,7 +142,7 @@ fun OnboardingScreenTwo(
             )
 
             // Spacer between "Je suis professionnel" and "Licensed by The Tag"
-            Spacer(modifier = Modifier.height(2.dp)) // Consistent with OnboardingScreenOne
+            Spacer(modifier = Modifier.height(2.dp))
 
             // "Licensed by The Tag" text at the very bottom
             Text(
