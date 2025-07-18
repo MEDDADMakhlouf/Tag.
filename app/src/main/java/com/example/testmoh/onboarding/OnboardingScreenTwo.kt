@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Surface // Added for consistency
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,6 +43,9 @@ fun OnboardingScreenTwo(
     onSignInClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {}
 ) {
+    // Define a consistent horizontal padding for all left-aligned components
+    val contentStartPadding = 24.dp // Consistent with OnboardingScreenOne
+
     Box(
         modifier = modifier
             .size(width = 58.dp, height = 80.dp) // Target POS screen size
@@ -58,47 +61,50 @@ fun OnboardingScreenTwo(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 4.dp, vertical = 2.dp),
+                .padding(vertical = 2.dp), // Only vertical padding for the main column
             horizontalAlignment = Alignment.CenterHorizontally, // Center the entire content block horizontally
             verticalArrangement = Arrangement.Top // Start arranging from the top
         ) {
-            // Spacer to push content down to start near the middle
-            Spacer(modifier = Modifier.weight(1.5f))
+            // Spacer to push content down to start near the middle (consistent with page 1)
+            Spacer(modifier = Modifier.weight(1.0f)) // Consistent with OnboardingScreenOne
 
             // Main Title and Sub-text block
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 2.dp),
+                    .padding(start = contentStartPadding, end = 2.dp), // Apply consistent left padding
                 horizontalAlignment = Alignment.Start, // Align text to the start (left)
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "Un Simple Geste Suffit.", // Original text
                     color = Color.White,
-                    fontSize = 25.sp,
+                    fontSize = 25.sp, // Consistent font size
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start, // Left align text
                     lineHeight = 28.sp
                 )
 
+                // Spacer between main title and sub-message (increased gap)
+                Spacer(modifier = Modifier.height(4.dp)) // Consistent with OnboardingScreenOne
+
                 Text(
                     text = "Touchez un tag avec votre smartphone pour accéder instantanément aux services d’un établissement.", // Original text
                     color = Color.LightGray,
-                    fontSize = 10.sp,
+                    fontSize = 10.sp, // Consistent font size
                     textAlign = TextAlign.Start // Left align text
                 )
             }
 
-            // Spacer to control space between text and buttons: Make this very small
-            Spacer(modifier = Modifier.height(4.dp))
+            // Spacer to control space between text and buttons (consistent with page 1)
+            Spacer(modifier = Modifier.height(60.dp)) // Consistent with OnboardingScreenOne
 
             // Buttons in a Row
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 2.dp),
-                horizontalArrangement = Arrangement.Center, // Center buttons horizontally
+                    .padding(start = contentStartPadding, end = 2.dp, bottom = 1.dp), // Apply consistent left padding
+                horizontalArrangement = Arrangement.Start, // Align buttons to the start (left)
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // "S'inscrire" Button
@@ -122,7 +128,7 @@ fun OnboardingScreenTwo(
             }
 
             // Spacer to push "Je suis professionnel" and "Licensed by The Tag" to the very bottom
-            Spacer(modifier = Modifier.weight(0.5f))
+            Spacer(modifier = Modifier.weight(0.01f)) // Consistent with OnboardingScreenOne
 
             // "Je suis professionnel" text
             Text(
@@ -132,8 +138,11 @@ fun OnboardingScreenTwo(
                 textAlign = TextAlign.Start, // Align with buttons
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 4.dp, bottom = 2.dp)
+                    .padding(start = contentStartPadding) // Apply consistent left padding
             )
+
+            // Spacer between "Je suis professionnel" and "Licensed by The Tag"
+            Spacer(modifier = Modifier.height(2.dp)) // Consistent with OnboardingScreenOne
 
             // "Licensed by The Tag" text at the very bottom
             Text(
@@ -143,7 +152,7 @@ fun OnboardingScreenTwo(
                 textAlign = TextAlign.Center, // Centered at the bottom
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 2.dp)
+                    .padding(bottom = 12.dp)
             )
         }
     }

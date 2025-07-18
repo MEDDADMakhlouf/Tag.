@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Surface // Added for consistency
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,6 +35,8 @@ fun OnboardingScreenFour(
     onSignInClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {}
 ) {
+    val contentStartPadding = 24.dp // Consistent with OnboardingScreenOne
+
     Box(
         modifier = modifier
             .size(width = 58.dp, height = 80.dp) // Target POS screen size
@@ -50,18 +52,18 @@ fun OnboardingScreenFour(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 4.dp, vertical = 2.dp),
+                .padding(vertical = 2.dp), // Only vertical padding for the main column
             horizontalAlignment = Alignment.CenterHorizontally, // Center the entire content block horizontally
             verticalArrangement = Arrangement.Top // Start arranging from the top
         ) {
-            // Spacer to push content down to start near the middle
-            Spacer(modifier = Modifier.weight(1.5f))
+            // Spacer to push content down
+            Spacer(modifier = Modifier.weight(1.5f)) // Adjusted weight to push content further down (Page 4 has slightly different text length, so adjust as needed)
 
             // Main Title and Sub-text block
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 2.dp),
+                    .padding(start = contentStartPadding, end = 2.dp), // Apply consistent left padding
                 horizontalAlignment = Alignment.Start, // Align text to the start (left)
                 verticalArrangement = Arrangement.Center
             ) {
@@ -74,6 +76,9 @@ fun OnboardingScreenFour(
                     lineHeight = 28.sp
                 )
 
+                // Spacer between main title and sub-message
+                Spacer(modifier = Modifier.height(4.dp)) // Consistent with OnboardingScreenOne
+
                 Text(
                     text = "Consultez le menu, appelez un serveur, demandez l'addition... tout depuis votre téléphone.", // Original text
                     color = Color.LightGray,
@@ -82,15 +87,15 @@ fun OnboardingScreenFour(
                 )
             }
 
-            // Spacer to control space between text and buttons: Make this very small
-            Spacer(modifier = Modifier.height(4.dp))
+            // Spacer to control space between text and buttons (consistent with page 1)
+            Spacer(modifier = Modifier.height(60.dp)) // Consistent with OnboardingScreenOne
 
             // Buttons in a Row
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 2.dp),
-                horizontalArrangement = Arrangement.Center, // Center buttons horizontally
+                    .padding(start = contentStartPadding, end = 2.dp, bottom = 1.dp), // Apply consistent left padding
+                horizontalArrangement = Arrangement.Start, // Align buttons to the start (left)
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // "S'inscrire" Button
@@ -114,7 +119,7 @@ fun OnboardingScreenFour(
             }
 
             // Spacer to push "Je suis professionnel" and "Licensed by The Tag" to the very bottom
-            Spacer(modifier = Modifier.weight(0.5f))
+            Spacer(modifier = Modifier.weight(0.01f)) // Consistent with OnboardingScreenOne
 
             // "Je suis professionnel" text
             Text(
@@ -124,8 +129,11 @@ fun OnboardingScreenFour(
                 textAlign = TextAlign.Start, // Align with buttons
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 4.dp, bottom = 2.dp)
+                    .padding(start = contentStartPadding) // Apply consistent left padding
             )
+
+            // Spacer between "Je suis professionnel" and "Licensed by The Tag"
+            Spacer(modifier = Modifier.height(2.dp)) // Consistent with OnboardingScreenOne
 
             // "Licensed by The Tag" text at the very bottom
             Text(
@@ -135,7 +143,7 @@ fun OnboardingScreenFour(
                 textAlign = TextAlign.Center, // Centered at the bottom
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 2.dp)
+                    .padding(bottom = 12.dp)
             )
         }
     }
