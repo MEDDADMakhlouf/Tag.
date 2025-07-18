@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface // Added for consistency
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,70 +35,62 @@ fun OnboardingScreenThree(
     onSignInClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {}
 ) {
-    val contentStartPadding = 24.dp // Consistent with OnboardingScreenOne
+    val contentStartPadding = 24.dp
 
     Box(
         modifier = modifier
-            .size(width = 58.dp, height = 80.dp) // Target POS screen size
-            .background(Color(0xFF1A1A2E)) // Fallback dark background
+            .size(width = 58.dp, height = 80.dp)
+            .background(Color(0xFF1A1A2E))
     ) {
-        // Background GIF for screen three
         GifImage(
             drawableRes = R.drawable.onboarding_anim_three,
             modifier = Modifier.fillMaxSize()
         )
 
-        // Content Column: This will hold all the UI elements.
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(vertical = 2.dp), // Only vertical padding for the main column
-            horizontalAlignment = Alignment.CenterHorizontally, // Center the entire content block horizontally
-            verticalArrangement = Arrangement.Top // Start arranging from the top
+                .padding(vertical = 2.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            // Spacer to push content down
-            Spacer(modifier = Modifier.weight(1.5f)) // Adjusted weight to push content further down (Page 3 has slightly different text length, so adjust as needed)
+            Spacer(modifier = Modifier.weight(1.5f))
 
-            // Main Title and Sub-text block
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = contentStartPadding, end = 2.dp), // Apply consistent left padding
-                horizontalAlignment = Alignment.Start, // Align text to the start (left)
+                    .padding(start = contentStartPadding, end = 2.dp),
+                horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Fast-Food ? Encore Plus\ngit  Rapide.", // Original text
+                    text = "Fast-Food ? Encore Plus\nRapide.",
                     color = Color.White,
-                    fontSize = 25.sp, // Consistent font size
+                    fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Start, // Left align text
+                    textAlign = TextAlign.Start,
                     lineHeight = 28.sp
                 )
 
-                // Spacer between main title and sub-message
-                Spacer(modifier = Modifier.height(4.dp)) // Consistent with OnboardingScreenOne
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Touchez un tag, accédez au menu, commandez et récupérez – sans attendre.", // Original text
+                    text = "Touchez un tag, accédez au menu, commandez et récupérez - sans attendre.",
                     color = Color.LightGray,
-                    fontSize = 10.sp, // Consistent font size
-                    textAlign = TextAlign.Start // Left align text
+                    fontSize = 10.sp,
+                    textAlign = TextAlign.Start
                 )
             }
 
-            // Spacer to control space between text and buttons (consistent with page 1)
-            Spacer(modifier = Modifier.height(60.dp)) // Consistent with OnboardingScreenOne
+            Spacer(modifier = Modifier.height(60.dp))
 
-            // Buttons in a Row
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = contentStartPadding, end = 2.dp, bottom = 1.dp), // Apply consistent left padding
-                horizontalArrangement = Arrangement.Start, // Align buttons to the start (left)
+                    .padding(start = contentStartPadding, end = 2.dp, bottom = 1.dp),
+                horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // "S'inscrire" Button
                 PosButton(
                     text = "S'inscrire",
                     onClick = onSignUpClick,
@@ -106,9 +98,8 @@ fun OnboardingScreenThree(
                     textColor = Color.Black
                 )
 
-                Spacer(modifier = Modifier.width(8.dp)) // Space between buttons
+                Spacer(modifier = Modifier.width(8.dp))
 
-                // "Se connecter" Button
                 PosButton(
                     text = "Se connecter",
                     onClick = onSignInClick,
@@ -118,29 +109,25 @@ fun OnboardingScreenThree(
                 )
             }
 
-            // Spacer to push "Je suis professionnel" and "Licensed by The Tag" to the very bottom
-            Spacer(modifier = Modifier.weight(0.01f)) // Consistent with OnboardingScreenOne
+            Spacer(modifier = Modifier.weight(0.01f))
 
-            // "Je suis professionnel" text
             Text(
                 text = "Je suis professionnel",
                 color = Color.LightGray,
                 fontSize = 10.sp,
-                textAlign = TextAlign.Start, // Align with buttons
+                textAlign = TextAlign.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = contentStartPadding) // Apply consistent left padding
+                    .padding(start = contentStartPadding)
             )
 
-            // Spacer between "Je suis professionnel" and "Licensed by The Tag"
-            Spacer(modifier = Modifier.height(2.dp)) // Consistent with OnboardingScreenOne
+            Spacer(modifier = Modifier.height(2.dp))
 
-            // "Licensed by The Tag" text at the very bottom
             Text(
                 text = "Licensed by The Tag",
                 color = Color.Gray,
                 fontSize = 8.sp,
-                textAlign = TextAlign.Center, // Centered at the bottom
+                textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 12.dp)

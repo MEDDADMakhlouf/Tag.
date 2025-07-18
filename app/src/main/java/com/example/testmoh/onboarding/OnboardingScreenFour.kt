@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface // Added for consistency
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,118 +35,106 @@ fun OnboardingScreenFour(
     onSignInClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {}
 ) {
-    val contentStartPadding = 24.dp // Consistent with OnboardingScreenOne
+    val contentStartPadding = 24.dp
 
     Box(
         modifier = modifier
-            .size(width = 58.dp, height = 80.dp) // Target POS screen size
-            .background(Color(0xFF1A1A2E)) // Fallback dark background
-    ) {
-        // Background GIF for screen four
-        GifImage(
-            drawableRes = R.drawable.onboarding_anim_four,
-            modifier = Modifier.fillMaxSize()
-        )
-
-        // Content Column: This will hold all the UI elements.
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(vertical = 2.dp), // Only vertical padding for the main column
-            horizontalAlignment = Alignment.CenterHorizontally, // Center the entire content block horizontally
-            verticalArrangement = Arrangement.Top // Start arranging from the top
-        ) {
-            // Spacer to push content down
-            Spacer(modifier = Modifier.weight(1.5f)) // Adjusted weight to push content further down (Page 4 has slightly different text length, so adjust as needed)
-
-            // Main Title and Sub-text block
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = contentStartPadding, end = 2.dp), // Apply consistent left padding
-                horizontalAlignment = Alignment.Start, // Align text to the start (left)
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Restaurant ?Plus Besoin\n D'attendre.", // Original text
-                    color = Color.White,
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Start, // Left align text
-                    lineHeight = 28.sp
+            .size(width = 58.dp, height = 80.dp)
+            .background(Color(0xFF1A1A2E))
+    )
+            {
+                GifImage(
+                    drawableRes = R.drawable.onboarding_anim_four,
+                    modifier = Modifier.fillMaxSize()
                 )
 
-                // Spacer between main title and sub-message
-                Spacer(modifier = Modifier.height(4.dp)) // Consistent with OnboardingScreenOne
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(vertical = 2.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    Spacer(modifier = Modifier.weight(1.5f))
 
-                Text(
-                    text = "Consultez le menu, appelez un serveur, demandez l'addition... tout depuis votre téléphone.", // Original text
-                    color = Color.LightGray,
-                    fontSize = 10.sp,
-                    textAlign = TextAlign.Start // Left align text
-                )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = contentStartPadding, end = 2.dp),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Restaurant ?Plus Besoin\nD'attendre.",
+                            color = Color.White,
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Start,
+                            lineHeight = 28.sp
+                        )
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Text(
+                            text = "Consultez le menu, appelez un serveur, demandez l'addition... tout depuis votre téléphone.",
+                            color = Color.LightGray,
+                            fontSize = 10.sp,
+                            textAlign = TextAlign.Start
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(60.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = contentStartPadding, end = 2.dp, bottom = 1.dp),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        PosButton(
+                            text = "S'inscrire",
+                            onClick = onSignUpClick,
+                            backgroundColor = Color.White,
+                            textColor = Color.Black
+                        )
+
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        PosButton(
+                            text = "Se connecter",
+                            onClick = onSignInClick,
+                            backgroundColor = Color.Transparent,
+                            textColor = Color.White,
+                            border = BorderStroke(1.dp, Color.White)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.weight(0.01f))
+
+                    Text(
+                        text = "Je suis professionnel",
+                        color = Color.LightGray,
+                        fontSize = 10.sp,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = contentStartPadding)
+                    )
+
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    Text(
+                        text = "Licensed by The Tag",
+                        color = Color.Gray,
+                        fontSize = 8.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 12.dp)
+                    )
+                }
             }
-
-            // Spacer to control space between text and buttons (consistent with page 1)
-            Spacer(modifier = Modifier.height(60.dp)) // Consistent with OnboardingScreenOne
-
-            // Buttons in a Row
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = contentStartPadding, end = 2.dp, bottom = 1.dp), // Apply consistent left padding
-                horizontalArrangement = Arrangement.Start, // Align buttons to the start (left)
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // "S'inscrire" Button
-                PosButton(
-                    text = "S'inscrire",
-                    onClick = onSignUpClick,
-                    backgroundColor = Color.White,
-                    textColor = Color.Black
-                )
-
-                Spacer(modifier = Modifier.width(8.dp)) // Space between buttons
-
-                // "Se connecter" Button
-                PosButton(
-                    text = "Se connecter",
-                    onClick = onSignInClick,
-                    backgroundColor = Color.Transparent,
-                    textColor = Color.White,
-                    border = BorderStroke(1.dp, Color.White)
-                )
-            }
-
-            // Spacer to push "Je suis professionnel" and "Licensed by The Tag" to the very bottom
-            Spacer(modifier = Modifier.weight(0.01f)) // Consistent with OnboardingScreenOne
-
-            // "Je suis professionnel" text
-            Text(
-                text = "Je suis professionnel",
-                color = Color.LightGray,
-                fontSize = 10.sp,
-                textAlign = TextAlign.Start, // Align with buttons
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = contentStartPadding) // Apply consistent left padding
-            )
-
-            // Spacer between "Je suis professionnel" and "Licensed by The Tag"
-            Spacer(modifier = Modifier.height(2.dp)) // Consistent with OnboardingScreenOne
-
-            // "Licensed by The Tag" text at the very bottom
-            Text(
-                text = "Licensed by The Tag",
-                color = Color.Gray,
-                fontSize = 8.sp,
-                textAlign = TextAlign.Center, // Centered at the bottom
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp)
-            )
-        }
-    }
 }
 
 @Preview(showBackground = true, widthDp = 58, heightDp = 80)

@@ -1,6 +1,5 @@
 package com.example.testmoh.util
 
-import android.graphics.drawable.Drawable // Can be removed if not used elsewhere
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -15,8 +14,7 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.GifDecoder
 import coil.drawable.MovieDrawable.Companion.REPEAT_INFINITE
 import coil.request.ImageRequest
-import coil.request.repeatCount // This import is for the extension function
-//import coil.request.REPEAT_INFINITE // THIS IS THE CORRECT COIL CONSTANT FOR INFINITE LOOPING
+import coil.request.repeatCount
 
 @Composable
 fun GifImage(
@@ -39,7 +37,6 @@ fun GifImage(
         .data(drawableRes)
         .crossfade(true)
         .apply {
-            // This is the key line. We must use the REPEAT_INFINITE from coil.request
             repeatCount(REPEAT_INFINITE)
         }
         .build()
