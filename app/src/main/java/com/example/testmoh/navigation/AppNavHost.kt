@@ -5,10 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.testmoh.onboarding.OnboardingScreenFour
-import com.example.testmoh.onboarding.OnboardingScreenOne
-import com.example.testmoh.onboarding.OnboardingScreenThree
-import com.example.testmoh.onboarding.OnboardingScreenTwo
+import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenFour
+import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenOne
+import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenThree
+import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenTwo
 
 object OnboardingRoutes {
     const val SCREEN_ONE = "onboarding_screen_one"
