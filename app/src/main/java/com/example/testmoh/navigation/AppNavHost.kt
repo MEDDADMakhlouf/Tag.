@@ -5,17 +5,15 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenFour
-import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenOne
-import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenThree
-import com.example.testmoh.ui.theme.screens.onboarding.OnboardingScreenTwo
-
-object OnboardingRoutes {
-    const val SCREEN_ONE = "onboarding_screen_one"
-    const val SCREEN_TWO = "onboarding_screen_two"
-    const val SCREEN_THREE = "onboarding_screen_three"
-    const val SCREEN_FOUR = "onboarding_screen_four"
-}
+import com.example.testmoh.onboarding.OnboardingScreenFour
+import com.example.testmoh.onboarding.OnboardingScreenOne
+import com.example.testmoh.onboarding.OnboardingScreenThree
+import com.example.testmoh.onboarding.OnboardingScreenTwo
+import com.example.testmoh.ui.theme.screens.common.ConnectionErrorDialog
+import com.example.testmoh.ui.theme.screens.home.HomeScreen
+import com.example.testmoh.ui.theme.screens.orderdetails.OrderDetailsScreen
+import com.example.testmoh.ui.theme.screens.products.ProductsScreen
+import com.example.testmoh.ui.theme.screens.settings.SettingsScreen
 
 @Composable
 fun AppNavHost(
@@ -24,31 +22,70 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = OnboardingRoutes.SCREEN_ONE,
+        startDestination = AppRoutes.ONBOARDING_SCREEN_ONE,
         modifier = modifier
     ) {
-        composable(OnboardingRoutes.SCREEN_ONE) {
+        composable(AppRoutes.ONBOARDING_SCREEN_ONE) {
             OnboardingScreenOne(
-                onSignInClick = { navController.navigate(OnboardingRoutes.SCREEN_TWO) },
-                onSignUpClick = { navController.navigate(OnboardingRoutes.SCREEN_TWO) }
+                onSignInClick = { navController.navigate(AppRoutes.ONBOARDING_SCREEN_TWO) },
+                onSignUpClick = { navController.navigate(AppRoutes.ONBOARDING_SCREEN_TWO) }
             )
         }
-        composable(OnboardingRoutes.SCREEN_TWO) {
+        composable(AppRoutes.ONBOARDING_SCREEN_TWO) {
             OnboardingScreenTwo(
-                onSignInClick = { navController.navigate(OnboardingRoutes.SCREEN_THREE) },
-                onSignUpClick = { navController.navigate(OnboardingRoutes.SCREEN_THREE) }
+                onSignInClick = { navController.navigate(AppRoutes.ONBOARDING_SCREEN_THREE) },
+                onSignUpClick = { navController.navigate(AppRoutes.ONBOARDING_SCREEN_THREE) }
             )
         }
-        composable(OnboardingRoutes.SCREEN_THREE) {
+        composable(AppRoutes.ONBOARDING_SCREEN_THREE) {
             OnboardingScreenThree(
-                onSignInClick = { navController.navigate(OnboardingRoutes.SCREEN_FOUR) },
-                onSignUpClick = { navController.navigate(OnboardingRoutes.SCREEN_FOUR) }
+                onSignInClick = { navController.navigate(AppRoutes.ONBOARDING_SCREEN_FOUR) },
+                onSignUpClick = { navController.navigate(AppRoutes.ONBOARDING_SCREEN_FOUR) }
             )
         }
-        composable(OnboardingRoutes.SCREEN_FOUR) {
+        composable(AppRoutes.ONBOARDING_SCREEN_FOUR) {
             OnboardingScreenFour(
-                onSignInClick = { /* TODO: Navigate to Main App or Login Screen */ },
-                onSignUpClick = { /* TODO: Navigate to Main App or Registration Screen */ }
+                onSignInClick = {
+                    navController.navigate(AppRoutes.HOME_SCREEN) {
+                        popUpTo(AppRoutes.ONBOARDING_SCREEN_ONE) { inclusive = true }
+                    }
+                },
+                onSignUpClick = {
+                    navController.navigate(AppRoutes.HOME_SCREEN) {
+                        popUpTo(AppRoutes.ONBOARDING_SCREEN_ONE) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(AppRoutes.HOME_SCREEN) {
+            HomeScreen(
+                onNavigateToOrderDetails = { orderId -> navController.navigate("${AppRoutes.ORDER_DETAILS_SCREEN}/$orderId") },
+                onNavigateToProducts = { navController.navigate(AppRoutes.PRODUCTS_SCREEN) },
+                onNavigateToSettings = { navController.navigate(AppRoutes.SETTINGS_SCREEN) },
+                onShowErrorDialog = { navController.navigate(AppRoutes.ERROR_MODAL) }
+            )
+        }
+        composable("${AppRoutes.ORDER_DETAILS_SCREEN}/{orderId}") { backStackEntry ->
+            val orderId = backStackEntry.arguments?.getString("orderId")
+            OrderDetailsScreen(
+                orderId = orderId,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+        composable(AppRoutes.PRODUCTS_SCREEN) {
+            ProductsScreen(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+        composable(AppRoutes.SETTINGS_SCREEN) {
+            SettingsScreen(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+        composable(AppRoutes.ERROR_MODAL) {
+            ConnectionErrorDialog(
+                onDismiss = { navController.popBackStack() }
             )
         }
     }

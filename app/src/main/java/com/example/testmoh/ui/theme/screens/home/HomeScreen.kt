@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues // Added for contentPadding
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,7 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward // Correct Import
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -38,11 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.testmoh.data.models.Order
-import com.example.testmoh.navigation.AppRoutes // Correct Import
-import com.example.testmoh.ui.common.AppTopBar // Correct Import
-import com.example.testmoh.ui.screens.common.ConnectionErrorDialog // Correct Import
-import com.example.testmoh.ui.common.Sidebar // Correct Import
+import com.example.testmoh.navigation.AppRoutes
 import com.example.testmoh.ui.theme.TestMohTheme
+import com.example.testmoh.ui.theme.common.AppTopBar
+import com.example.testmoh.ui.theme.common.Sidebar
+import com.example.testmoh.ui.theme.screens.common.ConnectionErrorDialog
 import com.example.testmoh.util.Constants
 import com.example.testmoh.viewmodel.HomeViewModel
 

@@ -1,4 +1,4 @@
-package com.example.testmoh.ui.theme.screens.onboarding
+package com.example.testmoh.onboarding
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface // Ensure this import is present
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,66 +38,58 @@ fun OnboardingScreenFour(
 ) {
     Box(
         modifier = modifier
-            .size(width = Constants.POS_SCREEN_WIDTH, height = Constants.POS_SCREEN_HEIGHT) // Use new constants
-            .background(Color(0xFF1A1A2E)) // Fallback dark background
+            .size(width = Constants.POS_SCREEN_WIDTH, height = Constants.POS_SCREEN_HEIGHT)
+            .background(Color(0xFF1A1A2E))
     ) {
-        // Background GIF for screen four
         GifImage(
             drawableRes = R.drawable.onboarding_anim_four,
             modifier = Modifier.fillMaxSize()
         )
 
-        // Content Column: This will hold all the UI elements.
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(vertical = 4.dp), // Adjusted vertical padding for new scale
-            horizontalAlignment = Alignment.CenterHorizontally, // Center the entire content block horizontally
-            verticalArrangement = Arrangement.Top // Start arranging from the top
+                .padding(vertical = 4.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            // Spacer to push content down
-            Spacer(modifier = Modifier.weight(1.0f)) // Adjusted weight for new scale
+            Spacer(modifier = Modifier.weight(1.0f))
 
-            // Main Title and Sub-text block
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = Constants.CONTENT_START_PADDING, end = Constants.CONTENT_START_PADDING), // Apply consistent left/right padding
-                horizontalAlignment = Alignment.Start, // Align text to the start (left)
+                    .padding(start = Constants.CONTENT_START_PADDING, end = Constants.CONTENT_START_PADDING),
+                horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Restaurant ?\nPlus Besoin D'attendre.", // Original text
+                    text = "Restaurant ?\nPlus Besoin D'attendre.",
                     color = Color.White,
-                    fontSize = 30.sp, // Adjusted font size for 230dp width
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Start, // Left align text
+                    textAlign = TextAlign.Start,
                     lineHeight = 34.sp
                 )
 
-                // Spacer between main title and sub-message
-                Spacer(modifier = Modifier.height(8.dp)) // Adjusted gap
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Consultez le menu, appelez un serveur, demandez l'addition... tout depuis votre téléphone.", // Original text
+                    text = "Consultez le menu, appelez un serveur, demandez l'addition... tout depuis votre téléphone.",
                     color = Color.LightGray,
-                    fontSize = 14.sp, // Adjusted font size
-                    textAlign = TextAlign.Start // Left align text
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Start
                 )
             }
 
-            // Spacer to control space between text and buttons
-            Spacer(modifier = Modifier.height(24.dp)) // Adjusted fixed height for larger gap
+            Spacer(modifier = Modifier.height(24.dp))
 
-            // Buttons in a Row
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = Constants.CONTENT_START_PADDING, end = Constants.CONTENT_START_PADDING, bottom = 4.dp), // Apply consistent left/right padding
-                horizontalArrangement = Arrangement.Start, // Align buttons to the start (left)
+                    .padding(start = Constants.CONTENT_START_PADDING, end = Constants.CONTENT_START_PADDING, bottom = 4.dp),
+                horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // "S'inscrire" Button
                 PosButton(
                     text = "S'inscrire",
                     onClick = onSignUpClick,
@@ -105,9 +97,8 @@ fun OnboardingScreenFour(
                     textColor = Color.Black
                 )
 
-                Spacer(modifier = Modifier.width(12.dp)) // Space between buttons
+                Spacer(modifier = Modifier.width(12.dp))
 
-                // "Se connecter" Button
                 PosButton(
                     text = "Se connecter",
                     onClick = onSignInClick,
@@ -117,38 +108,34 @@ fun OnboardingScreenFour(
                 )
             }
 
-            // Spacer to push "Je suis professionnel" and "Licensed by The Tag" to the very bottom
             Spacer(modifier = Modifier.weight(0.1f))
 
-            // "Je suis professionnel" text
             Text(
                 text = "Je suis professionnel",
                 color = Color.LightGray,
-                fontSize = 14.sp, // Adjusted font size
-                textAlign = TextAlign.Start, // Align with buttons
+                fontSize = 14.sp,
+                textAlign = TextAlign.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = Constants.CONTENT_START_PADDING) // Apply consistent left padding
+                    .padding(start = Constants.CONTENT_START_PADDING)
             )
 
-            // Spacer between "Je suis professionnel" and "Licensed by The Tag"
-            Spacer(modifier = Modifier.height(4.dp)) // Adjusted gap
+            Spacer(modifier = Modifier.height(4.dp))
 
-            // "Licensed by The Tag" text at the very bottom
             Text(
                 text = "Licensed by The Tag",
                 color = Color.Gray,
-                fontSize = 12.sp, // Adjusted font size
-                textAlign = TextAlign.Center, // Centered at the bottom
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp) // Adjusted bottom padding
+                    .padding(bottom = 16.dp)
             )
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 230, heightDp = 315) // Preview with new dimensions
+@Preview(showBackground = true, widthDp = 230, heightDp = 315)
 @Composable
 fun PreviewOnboardingScreenFourPOS() {
     TestMohTheme {

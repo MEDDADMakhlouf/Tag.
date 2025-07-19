@@ -22,8 +22,6 @@ fun GifImage(
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop
 ) {
-    // Directly use Coil for GIF loading as it's more robust and handles looping
-    // The 'usePlatformApproach' parameter and PlatformGifImage are removed to avoid resource type errors.
     val context = LocalContext.current
 
     val imageLoader = remember {
@@ -47,7 +45,7 @@ fun GifImage(
             .data(drawableRes)
             .apply {
                 crossfade(false)
-                repeatCount(-1) // Using -1 directly for infinite repeat
+                repeatCount(-1)
             }
             .build(),
         imageLoader = imageLoader,
