@@ -75,12 +75,16 @@ fun AppNavHost(
         }
         composable(AppRoutes.PRODUCTS_SCREEN) {
             ProductsScreen(
-                onBackClick = { navController.popBackStack() }
+                onNavigateToHome = { navController.navigate(AppRoutes.HOME_SCREEN) },
+                onNavigateToSettings = { navController.navigate(AppRoutes.SETTINGS_SCREEN) },
+                onShowErrorDialog = { navController.navigate(AppRoutes.ERROR_MODAL) }
             )
         }
         composable(AppRoutes.SETTINGS_SCREEN) {
             SettingsScreen(
-                onBackClick = { navController.popBackStack() }
+                onNavigateToHome = { navController.navigate(AppRoutes.HOME_SCREEN) },
+                onNavigateToProducts = { navController.navigate(AppRoutes.PRODUCTS_SCREEN) },
+                onShowErrorDialog = { navController.navigate(AppRoutes.ERROR_MODAL) }
             )
         }
         composable(AppRoutes.ERROR_MODAL) {

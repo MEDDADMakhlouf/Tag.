@@ -1,9 +1,13 @@
 package com.example.testmoh.ui.theme.screens.home
 
-
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -17,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -28,7 +33,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,102 +65,132 @@ fun HomeScreen(
     onNavigateToOrderDetails: (String) -> Unit,
     onNavigateToProducts: () -> Unit,
     onNavigateToSettings: () -> Unit,
-    onShowErrorDialog: () -> Unit, // Renamed for clarity, though not directly used here for initial call
+    onShowErrorDialog: () -> Unit,
     homeViewModel: HomeViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
     val orders by homeViewModel.orders.collectAsState()
     val showConnectionErrorDialog by homeViewModel.showConnectionErrorDialog.collectAsState()
 
-    Row(modifier = modifier.fillMaxSize().background(Color.Black)) { // Root background is black
+    val lazyListState = rememberLazyListState()
+    val isTopBarVisible by remember {
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
+        }
+    }
+
+    Row(modifier = modifier.fillMaxSize().background(Color.Black)) {
         Sidebar(
             selectedRoute = AppRoutes.HOME_SCREEN,
             onNavigate = { route ->
                 when (route) {
-                    AppRoutes.HOME_SCREEN -> { /* Already on home screen */ }
+                    AppRoutes.HOME_SCREEN -> { /* Stay on home screen */ }
                     AppRoutes.PRODUCTS_SCREEN -> onNavigateToProducts()
                     AppRoutes.SETTINGS_SCREEN -> onNavigateToSettings()
                 }
             }
         )
 
+        // Modified Spacer for the vertical line/padding
+        Spacer(
+            modifier = Modifier
+                .width(0.5.dp) // Thinner line
+                .fillMaxHeight()
+                .background(Color(0xFF404040)) // Specific dark gray color
+        )
+
         Column(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-                .background(BackgroundDark) // Main content background
+                .background(BackgroundDark)
         ) {
-            AppTopBar(title = "Nouvelle commande", isConnected = true) // Assumed connected for this screen
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        horizontal = Constants.CONTENT_HORIZONTAL_PADDING,
-                        vertical = 16.dp // Adjusted vertical padding
+            Box(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    state = lazyListState,
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(
+                        start = Constants.CONTENT_HORIZONTAL_PADDING,
+                        end = Constants.CONTENT_HORIZONTAL_PADDING,
+                        top = if (isTopBarVisible) Constants.TOP_BAR_HEIGHT + 16.dp else 8.dp,
+                        bottom = 8.dp
                     ),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Recherche Produit", // Placeholder text
-                    fontSize = 16.sp,
-                    color = TextSecondaryDark // Grey text
-                )
-                // Using List icon as a placeholder for filter as seen in design
-                Icon(
-                    imageVector = Icons.Default.List,
-                    contentDescription = "Filter",
-                    tint = TextSecondaryDark,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Recherche Produit",
+                                fontSize = 16.sp,
+                                color = TextSecondaryDark,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Icon(
+                                imageVector = Icons.Default.List,
+                                contentDescription = "Filter",
+                                tint = TextSecondaryDark,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    }
 
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(horizontal = Constants.CONTENT_HORIZONTAL_PADDING, vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp) // Adjusted space between cards
-            ) {
-                item {
-                    Text(
-                        text = "Nouvelle commande",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = TextPrimaryDark, // White text
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
+                    item {
+                        Text(
+                            text = "Nouvelle commande",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimaryDark,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                    }
+
+                    items(orders.filter { !it.isPaid }) { order ->
+                        OrderCard(order = order, onNavigateToOrderDetails = onNavigateToOrderDetails)
+                    }
+
+                    item {
+                        Text(
+                            text = "En cours ...",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimaryDark,
+                            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+                        )
+                    }
+
+                    items(orders.filter { it.status == "En cours..." }) { order ->
+                        OrderCard(order = order, onNavigateToOrderDetails = onNavigateToOrderDetails)
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Button(
+                            onClick = { homeViewModel.toggleConnectionErrorDialog(true) },
+                            modifier = Modifier.fillMaxWidth().height(Constants.BUTTON_HEIGHT),
+                            colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange),
+                            shape = RoundedCornerShape(Constants.CARD_CORNER_RADIUS)
+                        ) {
+                            Text("Show Connection Error (Test)", color = Color.White, fontSize = 16.sp)
+                        }
+                    }
                 }
 
-                items(orders.filter { !it.isPaid }) { order ->
-                    OrderCard(order = order, onNavigateToOrderDetails = onNavigateToOrderDetails)
-                }
-
-                item {
-                    Text(
-                        text = "En cours ...",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = TextPrimaryDark, // White text
-                        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-                    )
-                }
-
-                items(orders.filter { it.status == "En cours..." }) { order ->
-                    OrderCard(order = order, onNavigateToOrderDetails = onNavigateToOrderDetails)
-                }
-
-                item {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    // This is the test button, let's style it according to the app's button style
-                    Button(
-                        onClick = { homeViewModel.toggleConnectionErrorDialog(true) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(Constants.BUTTON_HEIGHT),
-                        colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange), // Use an app theme color
-                        shape = RoundedCornerShape(Constants.CARD_CORNER_RADIUS)
+                Column(modifier = Modifier.align(Alignment.TopCenter).fillMaxWidth()) {
+                    AnimatedVisibility(
+                        visible = isTopBarVisible,
+                        enter = slideInVertically(initialOffsetY = { -it }, animationSpec = tween(durationMillis = 300)),
+                        exit = slideOutVertically(targetOffsetY = { -it }, animationSpec = tween(durationMillis = 300)),
                     ) {
-                        Text("Show Connection Error (Test)", color = Color.White, fontSize = 16.sp)
+                        AppTopBar(
+                            title = "Nouvelle commande", // Confirmed title
+                            onBackClick = null, // No back arrow for home page
+                            isConnected = true,
+                            backgroundColor = Color.Black // Set top bar background to black
+                        )
                     }
                 }
             }
@@ -172,9 +209,9 @@ fun OrderCard(
     order: Order,
     onNavigateToOrderDetails: (String) -> Unit
 ) {
-    val cardBackgroundColor = if (order.isPaid) PrimaryOrange else CardBackgroundLight // Orange for paid, white for unpaid
-    val buttonBackgroundColor = if (order.isPaid) CardBackgroundLight else PrimaryBlue // White for "Payer", Blue for "Prêt"
-    val buttonTextColor = if (order.isPaid) TextOnLight else Color.White // Black for "Payer", White for "Prêt"
+    val cardBackgroundColor = if (order.isPaid) PrimaryOrange else CardBackgroundLight
+    val buttonBackgroundColor = if (order.isPaid) CardBackgroundLight else PrimaryBlue
+    val buttonTextColor = if (order.isPaid) TextOnLight else Color.White
     val buttonText = if (order.isPaid) "Payer" else "Prêt"
 
     Row(
@@ -192,12 +229,13 @@ fun OrderCard(
                     text = order.time,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = if (order.isPaid) Color.White else TextOnLight // White text on orange, black on white
+                    color = if (order.isPaid) Color.White else TextOnLight
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = order.customerName,
                     fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
                     color = if (order.isPaid) Color.White else TextOnLight
                 )
             }
@@ -205,11 +243,11 @@ fun OrderCard(
                 Text(
                     text = "Reste à payer : ${order.amountDue} €",
                     fontSize = 16.sp,
-                    color = Color.Red.copy(alpha = 0.8f) // Red for amount due as per design
+                    color = Color.Red.copy(alpha = 0.8f)
                 )
             } else {
                 Text(
-                    text = "Payé", // Text for paid status
+                    text = "Payé",
                     fontSize = 16.sp,
                     color = Color.White.copy(alpha = 0.8f)
                 )
@@ -218,12 +256,12 @@ fun OrderCard(
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Button(
-                onClick = { /* Handle button click */ },
+                onClick = { },
                 modifier = Modifier
-                    .width(100.dp) // Adjusted width for specific buttons on card
-                    .height(40.dp), // Adjusted height
+                    .width(100.dp)
+                    .height(40.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = buttonBackgroundColor),
-                shape = RoundedCornerShape(Constants.CARD_CORNER_RADIUS - 2.dp) // Slightly smaller radius than card
+                shape = RoundedCornerShape(Constants.CARD_CORNER_RADIUS - 2.dp)
             ) {
                 Text(buttonText, color = buttonTextColor, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
             }
@@ -231,8 +269,8 @@ fun OrderCard(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "Détails",
-                tint = if (order.isPaid) Color.White else TextOnLight, // White on orange, black on white
-                modifier = Modifier.size(28.dp) // Adjusted icon size
+                tint = if (order.isPaid) Color.White else TextOnLight,
+                modifier = Modifier.size(28.dp)
             )
         }
     }

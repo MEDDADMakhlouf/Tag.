@@ -11,8 +11,9 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 // New Colors based on designs
-val BackgroundDark = Color(0xFF212121) // Dark background for content areas
-val SidebarBackground = Color(0xFF141414) // Even darker for sidebar
+val BackgroundWithe = Color(0xFFFFFFFF) // White background for content areas
+val BackgroundDark = Color(0xFF000000) // Dark background for content areas
+val SidebarBackground = Color(0xFF000000) // Even darker for sidebar
 val PrimaryOrange = Color(0xFFFF8C00) // For paid orders/main action buttons
 val PrimaryBlue = Color(0xFF1E88E5) // For unpaid orders/secondary actions
 val CardBackgroundLight = Color(0xFFFFFFFF) // White cards on dark background

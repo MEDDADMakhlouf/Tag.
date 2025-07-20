@@ -101,27 +101,26 @@ object LocalDataSource {
     }
 
     fun getMockProducts(): List<Product> {
+        // Removed imageUrl from Product constructor calls
         return listOf(
-            Product("P001", "Burger Classique", "Burgers", 10.50),
-            Product("P002", "Frites", "Accompagnements", 3.00),
-            Product("P003", "Coca-Cola", "Boissons", 2.50),
-            Product("P004", "Salade César", "Salades", 8.00),
-            Product("P005", "Pizza Margherita", "Pizzas", 12.00),
-            Product("P006", "Café", "Boissons", 1.80),
-            Product("P007", "Cheeseburger", "Burgers", 11.00),
-            Product("P008", "Milkshake Fraise", "Boissons", 4.50)
+            Product("P001", "Burger King - SM Lucena", "Menus", 7.50, "🔥 Grillé à la flamme pour un goût inimitable", true),
+            Product("P002", "Chicken Royal Menu", "Menus", 8.00, "Un classique, poulet croustillant.", true),
+            Product("P003", "Steakhouse Menu", "Menus", 9.00, "Le goût authentique du grill.", false), // Example unavailable
+            Product("P004", "Coca-Cola 250CL", "Boissons", 2.50, "Boisson rafraîchissante.", true),
+            Product("P005", "Sprite 250CL", "Boissons", 2.50, "Boisson pétillante au citron vert.", true),
+            Product("P006", "Fanta Orange 250CL", "Boissons", 2.50, "Boisson fruitée à l'orange.", false), // Example unavailable
+            Product("P007", "Frites Moyennes", "Accompagnements", 3.00, "Des frites croustillantes et dorées.", true),
+            Product("P008", "Salade Mixte", "Accompagnements", 4.00, "Salade fraîche et variée.", true),
+            Product("P009", "Tiramisu", "Desserts", 5.50, "Dessert italien classique.", true),
+            Product("P010", "Brownie", "Desserts", 4.50, "Un brownie moelleux au chocolat.", true)
         )
     }
 
     fun getMockSettingsOptions(): List<SettingsOption> {
         return listOf(
-            SettingsOption("S001", "Heures d'ouverture", "9:00 - 22:00"),
-            SettingsOption("S002", "Gestion des employés", null),
-            SettingsOption("S003", "Paramètres de paiement", "Terminal, Espèces"),
-            SettingsOption("S004", "Notifications", "Activées"),
-            SettingsOption("S005", "Imprimante", "Connectée"),
-            SettingsOption("S006", "Support", null),
-            SettingsOption("S007", "À propos", "Version 1.0.0")
+            SettingsOption("S001", "Modification Horaires", "Gérez les heures d'ouverture"),
+            SettingsOption("S005", "Imprimante", "Configuration de l'imprimante"),
+            SettingsOption("S006", "Contacter l'assistance", "Obtenez de l'aide rapidement")
         )
     }
 }

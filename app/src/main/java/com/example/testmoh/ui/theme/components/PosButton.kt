@@ -24,16 +24,15 @@ fun PosButton(
     backgroundColor: Color,
     textColor: Color = Color.White,
     border: BorderStroke? = null,
-    fontSize: Int = 18 // Default font size for these buttons
+    fontSize: Int = 14 // Reduced default font size slightly
 ) {
     Button(
         onClick = onClick,
         modifier = modifier
-            .width(160.dp) // Adjusted width for design
             .height(Constants.BUTTON_HEIGHT),
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         border = border,
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp) // Reduced horizontal and vertical padding
     ) {
         Text(text, fontSize = fontSize.sp, fontWeight = FontWeight.SemiBold, color = textColor)
     }

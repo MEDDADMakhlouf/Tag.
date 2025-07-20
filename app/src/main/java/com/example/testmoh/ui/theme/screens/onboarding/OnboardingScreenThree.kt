@@ -93,8 +93,7 @@ fun OnboardingScreenThree(
                     .fillMaxWidth()
                     .padding(
                         start = Constants.CONTENT_HORIZONTAL_PADDING * 2,
-                        end = Constants.CONTENT_HORIZONTAL_PADDING * 2,
-                        bottom = 16.dp
+                        end = Constants.CONTENT_HORIZONTAL_PADDING * 2
                     ),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
@@ -104,10 +103,11 @@ fun OnboardingScreenThree(
                     onClick = onSignUpClick,
                     backgroundColor = Color.White,
                     textColor = TextOnLight,
-                    fontSize = 18
+                    fontSize = 16,
+                    modifier = Modifier.weight(1f)
                 )
 
-                Spacer(modifier = Modifier.width(24.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
                 PosButton(
                     text = "Se connecter",
@@ -115,11 +115,12 @@ fun OnboardingScreenThree(
                     backgroundColor = Color.Transparent,
                     textColor = TextPrimaryDark,
                     border = BorderStroke(2.dp, ButtonBorderColor),
-                    fontSize = 18
+                    fontSize = 16,
+                    modifier = Modifier.weight(1f)
                 )
             }
 
-            Spacer(modifier = Modifier.weight(0.1f))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = "Je suis professionnel",
@@ -131,7 +132,7 @@ fun OnboardingScreenThree(
                     .padding(start = Constants.CONTENT_HORIZONTAL_PADDING * 2)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.weight(0.1f))
 
             Text(
                 text = "Licensed by The Tag",

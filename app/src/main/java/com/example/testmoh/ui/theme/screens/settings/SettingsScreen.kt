@@ -1,6 +1,5 @@
 package com.example.testmoh.ui.theme.screens.settings
 
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -50,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.testmoh.R
 import com.example.testmoh.data.models.SettingsOption
+import com.example.testmoh.navigation.AppRoutes // Import AppRoutes
 import com.example.testmoh.ui.theme.CardBackgroundLight
 import com.example.testmoh.ui.theme.LightGrayBackground
 import com.example.testmoh.ui.theme.TestMohTheme
@@ -61,20 +61,23 @@ import com.example.testmoh.viewmodel.SettingsViewModel
 
 @Composable
 fun SettingsScreen(
-    onBackClick: () -> Unit,
+    onNavigateToHome: () -> Unit,
+    onNavigateToProducts: () -> Unit,
+    onShowErrorDialog: () -> Unit,
     settingsViewModel: SettingsViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
     val settingsOptions by settingsViewModel.settingsOptions.collectAsState()
 
-    Row(modifier = modifier.fillMaxSize().background(Color.Black)) { // Root background is still black for sidebar
+    Row(modifier = modifier.fillMaxSize().background(Color.Black)) {
         Sidebar(
-            selectedRoute = "settings_screen",
+            selectedRoute = AppRoutes.SETTINGS_SCREEN,
             onNavigate = { route ->
                 when (route) {
-                    "home_screen" -> onBackClick()
-                    "products_screen" -> onBackClick()
-                    else -> {}
+                    AppRoutes.HOME_SCREEN -> onNavigateToHome()
+                    AppRoutes.PRODUCTS_SCREEN -> onNavigateToProducts()
+                    AppRoutes.SETTINGS_SCREEN -> { /* Stay on settings screen */ }
+                    AppRoutes.ERROR_MODAL -> onShowErrorDialog() // Handle error modal navigation
                 }
             }
         )
@@ -83,9 +86,10 @@ fun SettingsScreen(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-                .background(CardBackgroundLight) // Changed main content background to white
+                .background(CardBackgroundLight)
         ) {
-            AppTopBar(title = "Paramètres", onBackClick = onBackClick)
+            // AppTopBar for Settings screen - no onBackClick to remove arrow
+            AppTopBar(title = "Paramètres", onBackClick = null)
 
             LazyColumn(
                 modifier = Modifier
@@ -93,28 +97,34 @@ fun SettingsScreen(
                     .background(CardBackgroundLight),
                 contentPadding = PaddingValues(horizontal = Constants.CONTENT_HORIZONTAL_PADDING, vertical = Constants.SCREEN_VERTICAL_PADDING)
             ) {
-                item {
-                    SettingsSection(
-                        title = "Modification Horaires",
-                        isExpandedByDefault = true
-                    ) {
-                        WorkingHoursSection()
-                    }
+                // Filter settingsOptions to only include the specified sections
+                val filteredOptions = settingsOptions.filter { option ->
+                    option.title == "Modification Horaires" ||
+                            option.title == "Imprimante" ||
+                            option.title == "Contacter l'assistance"
                 }
-                item {
-                    SettingsSection(title = "Imprimante") {
-                        PrinterSection()
+
+                items(filteredOptions) { option ->
+                    when (option.title) {
+                        "Modification Horaires" -> {
+                            SettingsSection(
+                                title = option.title,
+                                isExpandedByDefault = true
+                            ) {
+                                WorkingHoursSection()
+                            }
+                        }
+                        "Imprimante" -> {
+                            SettingsSection(title = option.title) {
+                                PrinterSection()
+                            }
+                        }
+                        "Contacter l'assistance" -> {
+                            SettingsSection(title = option.title) {
+                                ContactSupportSection()
+                            }
+                        }
                     }
-                }
-                item {
-                    SettingsSection(title = "Contacter l'assistance") {
-                        ContactSupportSection()
-                    }
-                }
-                item { Spacer(modifier = Modifier.height(16.dp)) }
-                items(settingsOptions.filter { it.title != "Modification Horaires" && it.title != "Imprimante" && it.title != "Contacter l'assistance" }) { option ->
-                    SettingsItem(option = option)
-                    Divider(color = Color.LightGray.copy(alpha = 0.5f), thickness = 1.dp)
                 }
             }
         }
@@ -279,8 +289,7 @@ fun TimeInputBox(time: String, isEnabled: Boolean) {
     ) {
         Text(text = time, fontSize = 16.sp, color = textColor)
         Icon(
-            painter = painterResource(id = R.drawable.clock_icon
-            ),
+            painter = painterResource(id = R.drawable.clock_icon),
             contentDescription = "Time",
             tint = iconTint,
             modifier = Modifier.size(20.dp)
@@ -339,7 +348,11 @@ fun ContactSupportSection() {
 fun PreviewSettingsScreenLandscape() {
     TestMohTheme {
         Surface {
-            SettingsScreen(onBackClick = {})
+            SettingsScreen(
+                onNavigateToHome = {},
+                onNavigateToProducts = {},
+                onShowErrorDialog = {}
+            )
         }
     }
 }
@@ -349,7 +362,11 @@ fun PreviewSettingsScreenLandscape() {
 fun PreviewSettingsScreenPortrait() {
     TestMohTheme {
         Surface {
-            SettingsScreen(onBackClick = {})
+            SettingsScreen(
+                onNavigateToHome = {},
+                onNavigateToProducts = {},
+                onShowErrorDialog = {}
+            )
         }
     }
 }

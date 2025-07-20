@@ -1,7 +1,6 @@
 package com.example.testmoh.ui.theme.common
 
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -61,7 +60,7 @@ fun Sidebar(
             .background(SidebarBackground)
             .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.Top // Align content to the top
     ) {
         Text(
             text = "tag.",
@@ -71,10 +70,10 @@ fun Sidebar(
             modifier = Modifier.padding(top = 8.dp, bottom = 32.dp)
         )
 
-        // Adjusted spacing for the three main icons
+        // Main icons pushed to top under logo
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp) // Smaller spacing for portrait mode
+            verticalArrangement = Arrangement.spacedBy(16.dp) // Small padding between icons
         ) {
             items.forEach { item ->
                 val tintColor = if (selectedRoute == item.route) Color.White else TextSecondaryDark
@@ -88,6 +87,8 @@ fun Sidebar(
                 )
             }
         }
+
+        Spacer(modifier = Modifier.weight(1f)) // Pushes the logout icon to the bottom
 
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ExitToApp,

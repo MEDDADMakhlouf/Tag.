@@ -85,9 +85,8 @@ fun OnboardingScreenOne(
                     .fillMaxWidth()
                     .padding(
                         start = Constants.CONTENT_HORIZONTAL_PADDING * 2,
-                        end = Constants.CONTENT_HORIZONTAL_PADDING * 2,
-                        bottom = 16.dp
-                    ),
+                        end = Constants.CONTENT_HORIZONTAL_PADDING * 2
+                    ), // Removed bottom padding here, handled by Spacer below
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -96,10 +95,11 @@ fun OnboardingScreenOne(
                     onClick = onSignUpClick,
                     backgroundColor = Color.White,
                     textColor = TextOnLight,
-                    fontSize = 18
+                    fontSize = 16, // Slightly reduced font size
+                    modifier = Modifier.weight(1f) // Allow button to take available space
                 )
 
-                Spacer(modifier = Modifier.width(24.dp))
+                Spacer(modifier = Modifier.width(8.dp)) // Added 8.dp space
 
                 PosButton(
                     text = "Se connecter",
@@ -107,11 +107,12 @@ fun OnboardingScreenOne(
                     backgroundColor = Color.Transparent,
                     textColor = TextPrimaryDark,
                     border = BorderStroke(2.dp, ButtonBorderColor),
-                    fontSize = 18
+                    fontSize = 16, // Slightly reduced font size
+                    modifier = Modifier.weight(1f) // Allow button to take available space
                 )
             }
 
-            Spacer(modifier = Modifier.weight(0.1f))
+            Spacer(modifier = Modifier.height(8.dp)) // Pushed "Je suis professionnel" up
 
             Text(
                 text = "Je suis professionnel",
@@ -123,7 +124,7 @@ fun OnboardingScreenOne(
                     .padding(start = Constants.CONTENT_HORIZONTAL_PADDING * 2)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.weight(0.1f)) // Adjusted weight to keep "Licensed by The Tag" at bottom
 
             Text(
                 text = "Licensed by The Tag",
