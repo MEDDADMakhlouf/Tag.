@@ -31,10 +31,10 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.testmoh.R
 import com.example.testmoh.ui.theme.TestMohTheme
-import com.example.testmoh.ui.theme.BackgroundDark // Use this for dialog background tint
-import com.example.testmoh.ui.theme.CardBackgroundLight // White for the dialog card itself
-import com.example.testmoh.ui.theme.PrimaryBlue // Dark blue button as per dialog design
-import com.example.testmoh.ui.theme.TextOnLight // Black text for dialog
+import com.example.testmoh.ui.theme.BackgroundDark
+import com.example.testmoh.ui.theme.CardBackgroundLight
+import com.example.testmoh.ui.theme.PrimaryBlue
+import com.example.testmoh.ui.theme.TextOnLight
 import com.example.testmoh.util.Constants
 
 @Composable
@@ -49,23 +49,22 @@ fun ConnectionErrorDialog(
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.7f)), // Darker overlay as per design
+                .background(Color.Black.copy(alpha = 0.7f)),
             contentAlignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier
-                    .width(320.dp) // Adjusted width for design
-                    .background(CardBackgroundLight, RoundedCornerShape(Constants.CARD_CORNER_RADIUS)) // White card background
-                    .padding(24.dp), // Increased padding
+                    .width(320.dp)
+                    .background(CardBackgroundLight, RoundedCornerShape(Constants.CARD_CORNER_RADIUS))
+                    .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                // Using painterResource to load a drawable from res/drawable
                 Icon(
-                    painter = painterResource(id = R.drawable.no_wifi), // Ensure 'ic_no_wifi' is a suitable icon
+                    painter = painterResource(id = R.drawable.no_wifi),
                     contentDescription = "No Connection",
-                    tint = TextOnLight, // Black tint for icon
-                    modifier = Modifier.size(72.dp) // Larger icon size
+                    tint = TextOnLight,
+                    modifier = Modifier.size(72.dp)
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -74,7 +73,7 @@ fun ConnectionErrorDialog(
                     text = "On dirait que vous avez perdu la connexion.",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextOnLight, // Black text
+                    color = TextOnLight,
                     textAlign = TextAlign.Center
                 )
 
@@ -83,7 +82,7 @@ fun ConnectionErrorDialog(
                 Text(
                     text = "Veuillez vérifier votre réseau et réessayer.",
                     fontSize = 16.sp,
-                    color = Color.Gray, // Gray for secondary text
+                    color = Color.Gray,
                     textAlign = TextAlign.Center
                 )
 
@@ -93,8 +92,8 @@ fun ConnectionErrorDialog(
                     onClick = onDismiss,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(Constants.BUTTON_HEIGHT), // Consistent button height
-                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue), // Dark blue button
+                        .height(Constants.BUTTON_HEIGHT),
+                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
                     shape = RoundedCornerShape(Constants.CARD_CORNER_RADIUS - 2.dp)
                 ) {
                     Text(

@@ -49,7 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.testmoh.R
 import com.example.testmoh.data.models.SettingsOption
-import com.example.testmoh.navigation.AppRoutes // Import AppRoutes
+import com.example.testmoh.navigation.AppRoutes
 import com.example.testmoh.ui.theme.CardBackgroundLight
 import com.example.testmoh.ui.theme.LightGrayBackground
 import com.example.testmoh.ui.theme.TestMohTheme
@@ -76,8 +76,8 @@ fun SettingsScreen(
                 when (route) {
                     AppRoutes.HOME_SCREEN -> onNavigateToHome()
                     AppRoutes.PRODUCTS_SCREEN -> onNavigateToProducts()
-                    AppRoutes.SETTINGS_SCREEN -> { /* Stay on settings screen */ }
-                    AppRoutes.ERROR_MODAL -> onShowErrorDialog() // Handle error modal navigation
+                    AppRoutes.SETTINGS_SCREEN -> {}
+                    AppRoutes.ERROR_MODAL -> onShowErrorDialog()
                 }
             }
         )
@@ -88,7 +88,6 @@ fun SettingsScreen(
                 .fillMaxHeight()
                 .background(CardBackgroundLight)
         ) {
-            // AppTopBar for Settings screen - no onBackClick to remove arrow
             AppTopBar(title = "Paramètres", onBackClick = null)
 
             LazyColumn(
@@ -97,7 +96,6 @@ fun SettingsScreen(
                     .background(CardBackgroundLight),
                 contentPadding = PaddingValues(horizontal = Constants.CONTENT_HORIZONTAL_PADDING, vertical = Constants.SCREEN_VERTICAL_PADDING)
             ) {
-                // Filter settingsOptions to only include the specified sections
                 val filteredOptions = settingsOptions.filter { option ->
                     option.title == "Modification Horaires" ||
                             option.title == "Imprimante" ||
@@ -297,7 +295,6 @@ fun TimeInputBox(time: String, isEnabled: Boolean) {
     }
 }
 
-
 @Composable
 fun PrinterSection() {
     Column(
@@ -341,7 +338,6 @@ fun ContactSupportSection() {
         Text(text = "Numéro de téléphone : 07 58 23 05 24", fontSize = 16.sp, color = TextOnLight)
     }
 }
-
 
 @Preview(showBackground = true, widthDp = 1280, heightDp = 800)
 @Composable

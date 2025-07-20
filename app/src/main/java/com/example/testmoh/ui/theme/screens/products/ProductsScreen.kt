@@ -1,6 +1,5 @@
 package com.example.testmoh.ui.theme.screens.products
 
-// Import rememberRipple from Material 3
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
@@ -74,7 +73,6 @@ import com.example.testmoh.ui.theme.screens.common.ConnectionErrorDialog
 import com.example.testmoh.util.Constants
 import com.example.testmoh.viewmodel.ProductsViewModel
 
-
 @Composable
 fun ProductsScreen(
     onNavigateToHome: () -> Unit,
@@ -105,7 +103,7 @@ fun ProductsScreen(
             onNavigate = { route ->
                 when (route) {
                     AppRoutes.HOME_SCREEN -> onNavigateToHome()
-                    AppRoutes.PRODUCTS_SCREEN -> { /* Stay on products screen */ }
+                    AppRoutes.PRODUCTS_SCREEN -> {}
                     AppRoutes.SETTINGS_SCREEN -> onNavigateToSettings()
                 }
             }
@@ -115,23 +113,23 @@ fun ProductsScreen(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-                .background(BackgroundWithe) // Changed background to white
+                .background(BackgroundWithe)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 LazyVerticalGrid(
-                    columns = if (isLandscape) GridCells.Fixed(4) else GridCells.Fixed(2), // 2 columns in portrait, 4 in landscape
+                    columns = if (isLandscape) GridCells.Fixed(4) else GridCells.Fixed(2),
                     state = lazyGridState,
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(
                         start = Constants.CONTENT_HORIZONTAL_PADDING,
                         end = Constants.CONTENT_HORIZONTAL_PADDING,
-                        top = if (isTopBarVisible) Constants.TOP_BAR_HEIGHT + 16.dp else 8.dp, // Adjust padding for top bar
+                        top = if (isTopBarVisible) Constants.TOP_BAR_HEIGHT + 16.dp else 8.dp,
                         bottom = 8.dp
                     ),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    item(span = { GridItemSpan(maxLineSpan) }) { // Span across all columns for search/filter
+                    item(span = { GridItemSpan(maxLineSpan) }) {
                         ProductSearchAndFilterSection()
                     }
 
@@ -151,7 +149,7 @@ fun ProductsScreen(
                         }
                     }
 
-                    item(span = { GridItemSpan(maxLineSpan) }) { // Span across all columns for category title
+                    item(span = { GridItemSpan(maxLineSpan) }) {
                         Text(
                             text = selectedCategory,
                             fontSize = 20.sp,
@@ -161,7 +159,6 @@ fun ProductsScreen(
                         )
                     }
 
-                    // Filter products by selected category
                     items(products.filter { it.category == selectedCategory || selectedCategory == "Menus" }) { product ->
                         ProductCard(
                             product = product,
@@ -184,14 +181,13 @@ fun ProductsScreen(
                     }
                 }
 
-                // Animated Top Bar - Wrapped in a Column to provide ColumnScope
                 Column(modifier = Modifier.align(Alignment.TopCenter).fillMaxWidth()) {
                     AnimatedVisibility(
                         visible = isTopBarVisible,
                         enter = slideInVertically(initialOffsetY = { -it }, animationSpec = tween(durationMillis = 300)),
                         exit = slideOutVertically(targetOffsetY = { -it }, animationSpec = tween(durationMillis = 300)),
                     ) {
-                        AppTopBar(title = "Produits", onBackClick = null, isConnected = true) // Pass onBackClick
+                        AppTopBar(title = "Produits", onBackClick = null, isConnected = true)
                     }
                 }
             }
@@ -236,7 +232,6 @@ fun ProductSearchAndFilterSection(modifier: Modifier = Modifier) {
                 .weight(1f)
                 .height(Constants.BUTTON_HEIGHT)
         )
-        // Removed Spacer and Icon for filter
     }
 }
 
@@ -267,25 +262,23 @@ fun CategoryTab(category: String, isSelected: Boolean, onCategorySelected: (Stri
     }
 }
 
-
 @Composable
 fun ProductCard(
     product: Product,
     onToggleAvailability: (String, Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Fixed size for each product card to ensure uniformity
-    val cardWidth = 200.dp // This value should be adjusted based on your desired layout
-    val cardHeight = 220.dp // This value should be adjusted based on your desired layout
+    val cardWidth = 200.dp
+    val cardHeight = 220.dp
 
     Surface(
         modifier = modifier
-            .size(width = cardWidth, height = cardHeight) // Fixed size for consistent boxes
+            .size(width = cardWidth, height = cardHeight)
             .clip(RoundedCornerShape(Constants.CARD_CORNER_RADIUS)),
         color = CardBackgroundLight,
         shadowElevation = 4.dp
     ) {
-        Box(modifier = Modifier.fillMaxSize()) { // Use a Box to overlay content and the switch
+        Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -296,19 +289,19 @@ fun ProductCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(100.dp) // Fixed height for image area
+                        .height(100.dp)
                         .clip(RoundedCornerShape(Constants.CARD_CORNER_RADIUS - 4.dp))
-                        .background(Color.LightGray), // Placeholder background
+                        .background(Color.LightGray),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "IMG", // Placeholder text
+                        text = "IMG",
                         color = TextSecondaryDark,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center
                     )
                 }
-                Spacer(modifier = Modifier.height(2.dp)) // Decreased space from 4.dp to 2.dp
+                Spacer(modifier = Modifier.height(2.dp))
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.Start
@@ -331,11 +324,10 @@ fun ProductCard(
                         text = "${product.price} €",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = PrimaryOrange // Price color
+                        color = PrimaryOrange
                     )
                 }
             }
-            // Removed Toggle Switch
         }
     }
 }

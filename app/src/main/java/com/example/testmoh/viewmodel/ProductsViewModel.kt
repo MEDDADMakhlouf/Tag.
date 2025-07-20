@@ -25,7 +25,6 @@ class ProductsViewModel(
 
     private fun loadProducts() {
         viewModelScope.launch {
-            // Removed imageUrl from Product constructor calls in dummy data
             _products.value = LocalDataSource.getMockProducts()
         }
     }

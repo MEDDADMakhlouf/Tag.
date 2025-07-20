@@ -27,10 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.testmoh.ui.theme.CardBackgroundLight // Default white background
+import com.example.testmoh.ui.theme.CardBackgroundLight
 import com.example.testmoh.ui.theme.PrimaryOrange
 import com.example.testmoh.ui.theme.SuccessGreen
-import com.example.testmoh.ui.theme.TextOnLight // Assuming this is a dark color for light backgrounds (e.g., Black)
+import com.example.testmoh.ui.theme.TextOnLight
 import com.example.testmoh.ui.theme.TextPrimaryDark
 import com.example.testmoh.util.Constants
 
@@ -38,57 +38,50 @@ import com.example.testmoh.util.Constants
 fun AppTopBar(
     title: String,
     modifier: Modifier = Modifier,
-    onBackClick: (() -> Unit)? = null, // Made nullable for optional back arrow
-    isConnected: Boolean = false, // For connection status indicator
-    backgroundColor: Color = CardBackgroundLight // Default to CardBackgroundLight (white)
+    onBackClick: (() -> Unit)? = null,
+    isConnected: Boolean = false,
+    backgroundColor: Color = CardBackgroundLight
 ) {
-    // Determine the text/icon color based on the background color's perceived lightness
-    // This is a simple heuristic; for more robust check, you'd calculate luminance.
     val contentColor = if (backgroundColor == Color.Black) TextPrimaryDark else TextOnLight
 
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(Constants.TOP_BAR_HEIGHT)
-            .background(backgroundColor) // Use the passed background color
+            .background(backgroundColor)
             .padding(horizontal = Constants.CONTENT_HORIZONTAL_PADDING),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
-            // Conditionally show back arrow
             if (onBackClick != null) {
                 IconButton(onClick = onBackClick) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = contentColor // Tint based on background
+                        tint = contentColor
                     )
                 }
-                Spacer(modifier = Modifier.width(8.dp)) // Spacer after back arrow
+                Spacer(modifier = Modifier.width(8.dp))
             }
-            // Title is centered within its Box, but its starting position will be affected by the IconButton's presence
-            // To truly left-align when no back button, we adjust the weight and alignment.
             Text(
                 text = title,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = contentColor, // Color based on background
-                // Adjust modifier for alignment based on back button presence
+                color = contentColor,
                 modifier = if (onBackClick == null) Modifier.align(Alignment.CenterStart) else Modifier.align(Alignment.Center)
             )
         }
 
-        // Placeholder for connection status or "Payer" button
         if (isConnected) {
             Box(
                 modifier = Modifier
                     .size(12.dp)
-                    .background(SuccessGreen, shape = MaterialTheme.shapes.small) // Use SuccessGreen for connected
+                    .background(SuccessGreen, shape = MaterialTheme.shapes.small)
             )
-        } else if (title.startsWith("Commande #")) { // Example: If it's the order details screen
+        } else if (title.startsWith("Commande #")) {
             Button(
-                onClick = { /* Handle Pay click */ },
+                onClick = { },
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange),
                 shape = MaterialTheme.shapes.small,
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)

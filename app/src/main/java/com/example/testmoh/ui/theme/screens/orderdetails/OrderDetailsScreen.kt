@@ -1,6 +1,5 @@
 package com.example.testmoh.ui.theme.screens.orderdetails
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -32,10 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.testmoh.data.datasource.LocalDataSource // Added import for LocalDataSource
+import com.example.testmoh.data.datasource.LocalDataSource
 import com.example.testmoh.data.models.Order
 import com.example.testmoh.ui.theme.BackgroundDark
-import com.example.testmoh.ui.theme.CardBackgroundDark // Using CardBackgroundDark for item cards
+import com.example.testmoh.ui.theme.CardBackgroundDark
 import com.example.testmoh.ui.theme.LightGrayBackground
 import com.example.testmoh.ui.theme.PrimaryOrange
 import com.example.testmoh.ui.theme.TestMohTheme
@@ -65,7 +64,7 @@ fun OrderDetailsScreen(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             AppTopBar(
-                title = "Commande #${order?.id ?: "..."}", // Make title dynamic
+                title = "Commande #${order?.id ?: "..."}",
                 onBackClick = onBackClick
             )
 
@@ -93,7 +92,7 @@ fun OrderDetailsContent(order: Order, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         LazyColumn(
-            modifier = Modifier.weight(1f), // Ensures LazyColumn takes all available space above buttons
+            modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(vertical = Constants.SCREEN_VERTICAL_PADDING),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -114,20 +113,18 @@ fun OrderDetailsContent(order: Order, modifier: Modifier = Modifier) {
                     fontSize = 18.sp,
                     color = TextSecondaryDark
                 )
-                Spacer(modifier = Modifier.height(24.dp)) // Reduced space
+                Spacer(modifier = Modifier.height(24.dp))
             }
 
             item {
-                // Articles Section
                 OrderArticlesSection(order.items)
             }
 
             item {
-                Spacer(modifier = Modifier.height(16.dp)) // Space between articles and summary
+                Spacer(modifier = Modifier.height(16.dp))
             }
 
             item {
-                // Summary Section
                 OrderSummarySection(order)
             }
         }
@@ -169,7 +166,7 @@ fun OrderArticlesSection(items: List<String>, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .background(CardBackgroundDark, RoundedCornerShape(Constants.CARD_CORNER_RADIUS))
-            .border(1.dp, Color.White, RoundedCornerShape(Constants.CARD_CORNER_RADIUS)) // White border
+            .border(1.dp, Color.White, RoundedCornerShape(Constants.CARD_CORNER_RADIUS))
             .padding(16.dp)
     ) {
         Text(
@@ -180,11 +177,9 @@ fun OrderArticlesSection(items: List<String>, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(bottom = 8.dp)
         )
         items.forEach { itemDescription ->
-            // Split the description by "•" and display each part on a new line
-            // Filter out empty strings and trim whitespace
             val parts = itemDescription.split("•").filter { it.isNotBlank() }.map { it.trim() }
             parts.forEachIndexed { index, part ->
-                if (index == 0) { // First part is the main item name
+                if (index == 0) {
                     Text(
                         text = part,
                         fontSize = 16.sp,
@@ -192,17 +187,17 @@ fun OrderArticlesSection(items: List<String>, modifier: Modifier = Modifier) {
                         color = TextPrimaryDark,
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
-                } else { // Subsequent parts are details, add bullet if not already present
+                } else {
                     val displayText = if (part.startsWith("votre")) "• $part" else part
                     Text(
                         text = displayText,
                         fontSize = 14.sp,
                         color = TextSecondaryDark,
-                        modifier = Modifier.padding(start = 8.dp) // Indent details
+                        modifier = Modifier.padding(start = 8.dp)
                     )
                 }
             }
-            if (itemDescription != items.last()) { // Add a small spacer between different main items
+            if (itemDescription != items.last()) {
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }
@@ -215,7 +210,7 @@ fun OrderSummarySection(order: Order, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .background(CardBackgroundDark, RoundedCornerShape(Constants.CARD_CORNER_RADIUS))
-            .border(1.dp, Color.White, RoundedCornerShape(Constants.CARD_CORNER_RADIUS)) // White border
+            .border(1.dp, Color.White, RoundedCornerShape(Constants.CARD_CORNER_RADIUS))
             .padding(16.dp)
     ) {
         Row(
@@ -241,7 +236,7 @@ fun OrderSummarySection(order: Order, modifier: Modifier = Modifier) {
             Text(text = "TVA", fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = TextPrimaryDark)
             Text(text = "${String.format("%.2f", order.tax)} $", fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = TextPrimaryDark)
         }
-        Spacer(modifier = Modifier.height(16.dp)) // More space before "À payer"
+        Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -251,7 +246,6 @@ fun OrderSummarySection(order: Order, modifier: Modifier = Modifier) {
         }
     }
 }
-
 
 @Preview(showBackground = true, widthDp = 1280, heightDp = 800)
 @Composable

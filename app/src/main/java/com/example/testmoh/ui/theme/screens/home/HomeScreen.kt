@@ -84,19 +84,18 @@ fun HomeScreen(
             selectedRoute = AppRoutes.HOME_SCREEN,
             onNavigate = { route ->
                 when (route) {
-                    AppRoutes.HOME_SCREEN -> { /* Stay on home screen */ }
+                    AppRoutes.HOME_SCREEN -> { }
                     AppRoutes.PRODUCTS_SCREEN -> onNavigateToProducts()
                     AppRoutes.SETTINGS_SCREEN -> onNavigateToSettings()
                 }
             }
         )
 
-        // Modified Spacer for the vertical line/padding
         Spacer(
             modifier = Modifier
-                .width(0.5.dp) // Thinner line
+                .width(0.5.dp)
                 .fillMaxHeight()
-                .background(Color(0xFF404040)) // Specific dark gray color
+                .background(Color(0xFF404040))
         )
 
         Column(
@@ -186,10 +185,10 @@ fun HomeScreen(
                         exit = slideOutVertically(targetOffsetY = { -it }, animationSpec = tween(durationMillis = 300)),
                     ) {
                         AppTopBar(
-                            title = "Nouvelle commande", // Confirmed title
-                            onBackClick = null, // No back arrow for home page
+                            title = "Nouvelle commande",
+                            onBackClick = null,
                             isConnected = true,
-                            backgroundColor = Color.Black // Set top bar background to black
+                            backgroundColor = Color.Black
                         )
                     }
                 }

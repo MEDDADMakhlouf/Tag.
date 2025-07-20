@@ -1,6 +1,5 @@
 package com.example.testmoh.ui.components
 
-
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
@@ -24,7 +23,7 @@ fun PosButton(
     backgroundColor: Color,
     textColor: Color = Color.White,
     border: BorderStroke? = null,
-    fontSize: Int = 14 // Reduced default font size slightly
+    fontSize: Int = 14
 ) {
     Button(
         onClick = onClick,
@@ -32,7 +31,7 @@ fun PosButton(
             .height(Constants.BUTTON_HEIGHT),
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         border = border,
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp) // Reduced horizontal and vertical padding
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(text, fontSize = fontSize.sp, fontWeight = FontWeight.SemiBold, color = textColor)
     }
