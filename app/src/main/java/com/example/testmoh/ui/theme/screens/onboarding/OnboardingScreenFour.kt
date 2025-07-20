@@ -27,6 +27,11 @@ import androidx.compose.ui.unit.sp
 import com.example.testmoh.R
 import com.example.testmoh.ui.components.PosButton
 import com.example.testmoh.ui.theme.TestMohTheme
+import com.example.testmoh.ui.theme.BackgroundDark
+import com.example.testmoh.ui.theme.TextPrimaryDark
+import com.example.testmoh.ui.theme.TextSecondaryDark
+import com.example.testmoh.ui.theme.ButtonBorderColor
+import com.example.testmoh.ui.theme.TextOnLight
 import com.example.testmoh.util.Constants
 import com.example.testmoh.util.GifImage
 
@@ -38,8 +43,8 @@ fun OnboardingScreenFour(
 ) {
     Box(
         modifier = modifier
-            .size(width = Constants.POS_SCREEN_WIDTH, height = Constants.POS_SCREEN_HEIGHT)
-            .background(Color(0xFF1A1A2E))
+            .fillMaxSize()
+            .background(BackgroundDark)
     ) {
         GifImage(
             drawableRes = R.drawable.onboarding_anim_four,
@@ -49,7 +54,7 @@ fun OnboardingScreenFour(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(vertical = 4.dp),
+                .padding(vertical = Constants.SCREEN_VERTICAL_PADDING * 2),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -58,35 +63,39 @@ fun OnboardingScreenFour(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = Constants.CONTENT_START_PADDING, end = Constants.CONTENT_START_PADDING),
+                    .padding(horizontal = Constants.CONTENT_HORIZONTAL_PADDING * 2),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "Restaurant ?\nPlus Besoin D'attendre.",
-                    color = Color.White,
-                    fontSize = 30.sp,
+                    color = TextPrimaryDark,
+                    fontSize = 44.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start,
-                    lineHeight = 34.sp
+                    lineHeight = 48.sp
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
                     text = "Consultez le menu, appelez un serveur, demandez l'addition... tout depuis votre téléphone.",
-                    color = Color.LightGray,
-                    fontSize = 14.sp,
+                    color = TextSecondaryDark,
+                    fontSize = 20.sp,
                     textAlign = TextAlign.Start
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(64.dp))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = Constants.CONTENT_START_PADDING, end = Constants.CONTENT_START_PADDING, bottom = 4.dp),
+                    .padding(
+                        start = Constants.CONTENT_HORIZONTAL_PADDING * 2,
+                        end = Constants.CONTENT_HORIZONTAL_PADDING * 2,
+                        bottom = 16.dp
+                    ),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -94,17 +103,19 @@ fun OnboardingScreenFour(
                     text = "S'inscrire",
                     onClick = onSignUpClick,
                     backgroundColor = Color.White,
-                    textColor = Color.Black
+                    textColor = TextOnLight,
+                    fontSize = 18
                 )
 
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(24.dp))
 
                 PosButton(
                     text = "Se connecter",
                     onClick = onSignInClick,
                     backgroundColor = Color.Transparent,
-                    textColor = Color.White,
-                    border = BorderStroke(1.dp, Color.White)
+                    textColor = TextPrimaryDark,
+                    border = BorderStroke(2.dp, ButtonBorderColor),
+                    fontSize = 18
                 )
             }
 
@@ -112,30 +123,30 @@ fun OnboardingScreenFour(
 
             Text(
                 text = "Je suis professionnel",
-                color = Color.LightGray,
-                fontSize = 14.sp,
+                color = TextSecondaryDark,
+                fontSize = 18.sp,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = Constants.CONTENT_START_PADDING)
+                    .padding(start = Constants.CONTENT_HORIZONTAL_PADDING * 2)
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = "Licensed by The Tag",
                 color = Color.Gray,
-                fontSize = 12.sp,
+                fontSize = 16.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = 32.dp)
             )
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 230, heightDp = 315)
+@Preview(showBackground = true, widthDp = 800, heightDp = 1280)
 @Composable
 fun PreviewOnboardingScreenFourPOS() {
     TestMohTheme {

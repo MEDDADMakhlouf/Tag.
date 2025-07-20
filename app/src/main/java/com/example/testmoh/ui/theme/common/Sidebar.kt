@@ -1,5 +1,7 @@
 package com.example.testmoh.ui.theme.common
 
+
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
@@ -26,6 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.testmoh.ui.theme.TestMohTheme
+import com.example.testmoh.ui.theme.SidebarBackground
+import com.example.testmoh.ui.theme.TextSecondaryDark
+import com.example.testmoh.ui.theme.TagTextGrey
+import com.example.testmoh.util.Constants
 
 data class SidebarItem(
     val icon: ImageVector,
@@ -39,8 +46,7 @@ fun Sidebar(
     onNavigate: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val sidebarWidth = 50.dp
-    val iconSize = 24.dp
+    val iconSize = 28.dp
 
     val items = listOf(
         SidebarItem(Icons.Default.Home, "Accueil", "home_screen"),
@@ -50,27 +56,28 @@ fun Sidebar(
 
     Column(
         modifier = modifier
-            .width(sidebarWidth)
+            .width(Constants.SIDEBAR_WIDTH)
             .fillMaxHeight()
-            .background(Color.Black)
-            .padding(vertical = 8.dp),
+            .background(SidebarBackground)
+            .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = "tag.",
-            color = Color.White,
-            fontSize = 16.sp,
+            color = TagTextGrey,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+            modifier = Modifier.padding(top = 8.dp, bottom = 32.dp)
         )
 
+        // Adjusted spacing for the three main icons
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp) // Smaller spacing for portrait mode
         ) {
             items.forEach { item ->
-                val tintColor = if (selectedRoute == item.route) Color.White else Color.Gray
+                val tintColor = if (selectedRoute == item.route) Color.White else TextSecondaryDark
                 Icon(
                     imageVector = item.icon,
                     contentDescription = item.contentDescription,
@@ -83,12 +90,12 @@ fun Sidebar(
         }
 
         Icon(
-            imageVector = Icons.Default.Settings,
+            imageVector = Icons.AutoMirrored.Filled.ExitToApp,
             contentDescription = "Déconnexion",
-            tint = Color.Gray,
+            tint = TextSecondaryDark,
             modifier = Modifier
                 .size(iconSize)
-                .clickable { }
+                .clickable { /* Handle logout */ }
                 .padding(bottom = 8.dp)
         )
     }
