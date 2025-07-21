@@ -70,5 +70,5 @@ On regular smartphones, **portrait mode compresses the interface**, making it le
    ## 👨‍💻 Author
 
 - **Name**: MEDDAD Makhlouf 
-- 💼 [LinkedIn](www.linkedin.com/in/makhlouf-meddad-6674332a5)  
-- 📫 **Email**: makhloufmeddad@gmail.com
+- **LinkedIn**:[LinkedIn](https://www.linkedin.com/in/makhlouf-meddad-6674332a5/)  
+- **Email**: makhloufmeddad@gmail.com
